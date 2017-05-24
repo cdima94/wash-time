@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lg_layout_new_account_fr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lg_location_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lg_location_view"
+            android:background="@color/background_2"
+            android:paddingTop="100dp">
+
+            <Button
+                android:id="@+id/na_next_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:background="@drawable/next_button_style"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

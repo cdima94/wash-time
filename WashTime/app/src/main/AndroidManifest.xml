@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.washtime.com.washtime">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/wash"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/WashTime">
+        <activity android:name=".activity.LoginActivity" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.StudentActivity"/>
+        <activity android:name=".activity.StudentAdminActivity"/>
+        <activity android:name=".activity.GeneralAdminActivity"/>
+        <activity android:name=".activity.GeneralAdminSettingActivity"/>
+        <activity android:name=".activity.AddNewLocationActivity"/>
+        <activity android:name=".activity.AddNewAccountActivity"/>
+        <activity android:name=".activity.StudentSettingActivity"/>
+
+        <receiver android:name="app.washtime.com.washtime.receiver.AlarmReceiver">
+        </receiver>
+    </application>
+
+</manifest>

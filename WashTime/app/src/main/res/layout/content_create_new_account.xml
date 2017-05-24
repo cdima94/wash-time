@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lg_layout_new_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp"
+    android:background="#E8E8E8">
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.AddNewAccountFragment"
+        android:id="@+id/fr_lg_addNewAccount"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_add_new_account">
+    </fragment>
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.AddNewAccountLNFragment"
+        android:id="@+id/fr_lg_addNewAccount_location_name_list"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_add_new_account_location_name_list">
+    </fragment>
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.AddNewAccountLFragment"
+        android:id="@+id/fr_lg_addNewAccount_location_list"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_add_new_account_location_list">
+    </fragment>
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.AddNewAccountFragmentFullName"
+        android:id="@+id/fr_lg_addNewAccount_fullName"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_add_new_account_full_name">
+    </fragment>
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.AddNewAccountFragmentRoom"
+        android:id="@+id/fr_lg_addNewAccount_room"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_add_new_account_room">
+    </fragment>
+</FrameLayout>

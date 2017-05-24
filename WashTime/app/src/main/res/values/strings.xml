@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Application Name -->
+    <string name="app_name">Wash Time</string>
+
+    <!-- app_layout_login.xmlt_login.xml -->
+    <string name="forgot_password_string"><u>Forgot password</u></string>
+    <string name="log_in">Log in</string>
+    <string name="create_new_account">Create new account</string>
+
+    <!--drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- General Admin -->
+    <string name="logout">Log out</string>
+
+    <array name="test">
+        <item>Test 1</item>
+    </array>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/st_setting_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp"
+    android:background="@color/background_2">
+
+    <fragment
+        android:name="app.washtime.com.washtime.fragment.StudentSettingMainViewFragment"
+        android:id="@+id/st_setting_fr"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_student_settings">
+    </fragment>
+</FrameLayout>

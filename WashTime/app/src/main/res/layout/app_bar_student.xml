@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/student_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/student_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary" />
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:id="@+id/student_tab_item_layout">
+
+            <android.support.design.widget.TabItem android:text="Mon" />
+
+            <android.support.design.widget.TabItem android:text="Tue" />
+
+            <android.support.design.widget.TabItem android:text="Wed" />
+
+            <android.support.design.widget.TabItem android:text="Thu" />
+
+            <android.support.design.widget.TabItem android:text="Fri" />
+
+            <android.support.design.widget.TabItem android:text="Sat" />
+
+            <android.support.design.widget.TabItem android:text="Sun" />
+
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        layout="@layout/content_student"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/student_bar_layout" />
+</RelativeLayout>
