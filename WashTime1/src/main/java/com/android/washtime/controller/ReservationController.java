@@ -28,7 +28,6 @@ public class ReservationController {
 	@Autowired
 	ReservationRepository reservationRepo;
 	
-	
 	@Autowired
 	StudentRepository studentRepo;
 	
