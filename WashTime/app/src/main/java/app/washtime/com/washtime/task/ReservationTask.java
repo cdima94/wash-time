@@ -11,4 +11,6 @@ public interface ReservationTask {
     List<Reservation> getSpecificReservationList(Object... parameters);
 
     void reserve(Reservation reservation);
+
+    String delete(Object... parameters);
 }

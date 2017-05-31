@@ -1,8 +1,10 @@
 package app.washtime.com.washtime.activity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -228,9 +230,40 @@ public class StudentActivity extends AppCompatActivity implements NavigationView
                         if (v != null) v.setGravity(Gravity.CENTER);
                         toast.show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "A reservation already exist for this interval", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final ReservationViewContainer reservationViewContainer = (ReservationViewContainer) parent.getAdapter().getItem(position);
+                if (reservationViewContainer.getRoom() == mStudent.getRoom()) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    ReservationTask task = new ReservationTaskImpl();
+                                    task.delete(calculateReservationDate(),
+                                            mStudent.getStudentHome().getLocationName(),
+                                            mStudent.getStudentHome().getName(),
+                                            mStudent.getRoom(),
+                                            reservationViewContainer.getIntervalHours().substring(0, reservationViewContainer.getIntervalHours().lastIndexOf("-")),
+                                            reservationViewContainer.getIntervalHours().substring(reservationViewContainer.getIntervalHours().indexOf("-") + 1, reservationViewContainer.getIntervalHours().length())
+                                    );
+                                    mAdapter.populateReservationList(task.getReservationList(DayOfWeek.getByPosition(tabLayout.getSelectedTabPosition()), calculateReservationDate(), mStudent.getStudentHome().getLocationName(), mStudent.getStudentHome().getName(), mStudent.getRoom()));
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(StudentActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).create().show();
+                }
+                return false;
             }
         });
     }

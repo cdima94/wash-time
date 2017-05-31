@@ -49,6 +49,18 @@ public class ReservationTaskImpl implements ReservationTask {
         new CreateNewReservation().execute(reservation);
     }
 
+    @Override
+    public String delete(Object... parameters) {
+        try {
+            return new Delete().execute(parameters).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private class GetReservationList extends AsyncTask<Object, Integer, List<Reservation>> {
 
         protected List<Reservation> doInBackground(Object... parameters) {
@@ -138,6 +150,24 @@ public class ReservationTaskImpl implements ReservationTask {
                 Log.e("MainActivity", e.getMessage(), e);
             }
             return null;
+        }
+    }
+
+    private class Delete extends AsyncTask<Object, Void, String> {
+
+        @Override
+        protected String doInBackground(Object... params) {
+            final String url = "http://"+ ConfigConstants.IP +"/delete/"
+                    + (String)params[0] + "/"
+                    + (String)params[1] + "/"
+                    + (String)params[2] + "/"
+                    + String.valueOf(params[3]) + "/"
+                    + (String)params[4] + "/"
+                    + (String)params[5];
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            String response = restTemplate.getForObject(url, String.class);
+            return response;
         }
     }
 }
