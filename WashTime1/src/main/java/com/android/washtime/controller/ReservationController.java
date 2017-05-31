@@ -57,6 +57,14 @@ public class ReservationController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/delete/{date}/{locationName}/{name}/{room}/{startHour}/{endHour}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public String getSpecificReservation(@PathVariable String date,  @PathVariable String locationName, @PathVariable String name, @PathVariable String room, @PathVariable String startHour, @PathVariable String endHour, HttpServletResponse response) {
+		reservationRepo.delete(reservationRepo.findReservationByDateAndAndStudentStudentHomeLocationNameAndStudentStudentHomeNameAndStudentRoomAndStartHourAndEndHour(date, locationName, name, Integer.valueOf(room), startHour, endHour).get());
+		reservationRepo.flush();
+		return String.valueOf(response.getStatus());
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/getSpecificReservation/{startDate}/{endDate}/{locationName}/{name}/{room}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public List<Reservation> getSpecificReservation(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String locationName, @PathVariable String name, @PathVariable String room) {
 		ArrayList<Reservation> retList =  new ArrayList<>();
@@ -64,7 +72,7 @@ public class ReservationController {
 		String[] splitEndDate = endDate.split("-");
 		LocalDate startLocalDate = LocalDate.of(Integer.valueOf(splitStartDate[0]), Integer.valueOf(splitStartDate[1]), Integer.valueOf(splitStartDate[2]));
 		LocalDate endLocalDate = LocalDate.of(Integer.valueOf(splitEndDate[0]), Integer.valueOf(splitEndDate[1]), Integer.valueOf(splitEndDate[2]));
-		while (startLocalDate.getDayOfMonth() <= endLocalDate.getDayOfMonth()) {
+		while (startLocalDate.isBefore(endLocalDate)) {
 			retList.addAll(reservationRepo.findReservationByDateAndStudentStudentHomeLocationNameAndStudentStudentHomeNameAndStudentRoom(DateParsing.formatDate(startLocalDate.toString()), locationName, name, Integer.valueOf(room)));
 			startLocalDate = startLocalDate.plusDays(1);
 		}
