@@ -78,4 +78,24 @@ public class ReservationController {
 		}
 		return retList;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getHistoryReservation/{startDate}/{endDate}/{locationName}/{name}/{floor}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public List<Reservation> getHistoryReservation(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String locationName, @PathVariable String name, @PathVariable String floor) {
+		ArrayList<Reservation> retList =  new ArrayList<>();
+		String[] splitStartDate = startDate.split("-");
+		String[] splitEndDate = endDate.split("-");
+		LocalDate startLocalDate = LocalDate.of(Integer.valueOf(splitStartDate[0]), Integer.valueOf(splitStartDate[1]), Integer.valueOf(splitStartDate[2]));
+		LocalDate endLocalDate = LocalDate.of(Integer.valueOf(splitEndDate[0]), Integer.valueOf(splitEndDate[1]), Integer.valueOf(splitEndDate[2]));
+		while (startLocalDate.isBefore(endLocalDate)) {
+			List<Reservation> reservationList = reservationRepo.findReservationByDateAndStudentStudentHomeLocationNameAndStudentStudentHomeName(DateParsing.formatDate(startLocalDate.toString()), locationName, name);
+			for (Reservation res: reservationList) {
+				if (res.getStudent().getRoom() / 100 == Integer.valueOf(floor)) {
+					retList.add(res);
+				}
+			}
+			startLocalDate = startLocalDate.plusDays(1);
+		}
+		return retList;
+	}
 }

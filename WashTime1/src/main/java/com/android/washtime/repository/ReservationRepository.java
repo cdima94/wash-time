@@ -16,4 +16,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	List<Reservation> findReservationByDayAndDateAndStudentStudentHomeLocationNameAndStudentStudentHomeName(DayOfWeek day, String date, String locationName, String name);
 	List<Reservation> findReservationByDateAndStudentStudentHomeLocationNameAndStudentStudentHomeNameAndStudentRoom(String date, String locationName, String name, int room);
 	Optional<Reservation> findReservationByDateAndAndStudentStudentHomeLocationNameAndStudentStudentHomeNameAndStudentRoomAndStartHourAndEndHour(String date, String locationName, String name, int room, String startHour, String endHour);
+	List<Reservation> findReservationByDateAndStudentStudentHomeLocationNameAndStudentStudentHomeName(String date, String locationName, String name);
 }
