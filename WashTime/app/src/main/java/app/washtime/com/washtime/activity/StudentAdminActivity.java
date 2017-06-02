@@ -51,7 +51,7 @@ public class StudentAdminActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
-                    if (getToolbarTitle().equals("Rules")) {
+                    if (getToolbarTitle().equals("Admin")) {
                         Intent intent = new Intent(getApplicationContext(), StudentActivity.class);
                         intent.putExtra("student", (Student) getIntent().getSerializableExtra("student"));
                         startActivity(intent);

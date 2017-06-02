@@ -61,6 +61,18 @@ public class ReservationTaskImpl implements ReservationTask {
         return null;
     }
 
+    @Override
+    public List<Reservation> getHistoryList(Object... parameters) {
+        try {
+            return new GetHistoryList().execute(parameters).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private class GetReservationList extends AsyncTask<Object, Integer, List<Reservation>> {
 
         protected List<Reservation> doInBackground(Object... parameters) {
@@ -168,6 +180,44 @@ public class ReservationTaskImpl implements ReservationTask {
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             String response = restTemplate.getForObject(url, String.class);
             return response;
+        }
+    }
+
+    private class GetHistoryList extends AsyncTask<Object, Integer, List<Reservation>> {
+
+        @Override
+        protected List<Reservation> doInBackground(Object... params) {
+            List<Reservation> reservations = new ArrayList<>();
+            try {
+                final String url = "http://"+ ConfigConstants.IP +"/getHistoryReservation/"
+                        + (String) params[0] + "/"
+                        + (String) params[1] + "/"
+                        + (String) params[2] + "/"
+                        + (String) params[3] + "/"
+                        + String.valueOf(params[4]);
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                List<LinkedHashMap> linkedMap = restTemplate.getForObject(url, List.class);
+                for (LinkedHashMap linkedHashMap: linkedMap) {
+                    Reservation reservation = new Reservation();
+                    reservation.setDay(DayOfWeek.valueOf((String)linkedHashMap.get("day")));
+                    reservation.setDate((String)linkedHashMap.get("date"));
+                    reservation.setStartHour((String)linkedHashMap.get("startHour"));
+                    reservation.setEndHour((String)linkedHashMap.get("endHour"));
+                    LinkedHashMap studentMap = (LinkedHashMap) linkedHashMap.get("student");
+                    Student studentItem = new Student();
+                    studentItem.setLastName((String)studentMap.get("lastName"));
+                    studentItem.setFirstName((String)studentMap.get("firstName"));
+                    studentItem.setUserName((String)studentMap.get("userName"));
+                    studentItem.setRoom((Integer)studentMap.get("room"));
+                    reservation.setStudent(studentItem);
+                    reservations.add(reservation);
+                }
+                return reservations;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+            return null;
         }
     }
 }

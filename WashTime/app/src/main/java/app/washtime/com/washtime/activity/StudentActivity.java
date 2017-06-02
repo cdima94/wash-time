@@ -88,7 +88,7 @@ public class StudentActivity extends AppCompatActivity implements NavigationView
             addListenerForListView();
         }
 
-        scheduleNotification();
+        // scheduleNotification();
     }
 
     private int parseDuration(String duration) {

@@ -13,4 +13,6 @@ public interface ReservationTask {
     void reserve(Reservation reservation);
 
     String delete(Object... parameters);
+
+    List<Reservation> getHistoryList(Object... parameters);
 }

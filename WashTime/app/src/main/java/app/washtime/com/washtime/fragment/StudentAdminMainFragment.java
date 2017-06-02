@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,30 +52,44 @@ public class StudentAdminMainFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("rule", mRule);
-                bundle.putString("title", "Change rule");
-                StudentAdminDuration newFragment = new StudentAdminDuration();
-                newFragment.clear();
-                newFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.st_admin_frame_layout, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (adapter.getItem(position).getLabelName().equals("Rule")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("rule", mRule);
+                    bundle.putString("title", "Change rule");
+                    StudentAdminDuration newFragment = new StudentAdminDuration();
+                    newFragment.clear();
+                    newFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.st_admin_frame_layout, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                if (adapter.getItem(position).getLabelName().equals("History")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", mStudent);
+                    bundle.putString("title", "History");
+                    StudentAdminHistory newFragment = new StudentAdminHistory();
+                    newFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.st_admin_frame_layout, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
     }
 
     private List<SettingItemView> populateRuleList() {
+        SettingItemView history = new SettingItemView("History", "");
         if (mRule != null) {
             SettingItemView item = new SettingItemView("Rule",
                     "Number of reservation:  " + mRule.getNoReservations() + "\n" +
                     "Duration:  " + mRule.getDuration() + "\n" +
                     "Start hour:  " +  mRule.getStartHour() + "\n" +
                     "End hour:  " + mRule.getEndHour());
-            return Arrays.asList(item);
+            return Arrays.asList(item, history);
         } else {
-            return new ArrayList<>();
+            return Arrays.asList(history);
         }
     }
 
