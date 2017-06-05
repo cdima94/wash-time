@@ -98,4 +98,18 @@ public class ReservationController {
 		}
 		return retList;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/countReservation/{date}/{locationName}/{name}/{floor}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public String countReservation(@PathVariable String date, @PathVariable String locationName, @PathVariable String name, @PathVariable String floor) {
+		int count = 0;
+		List<Reservation> reservations = reservationRepo.findReservationByDateAndStudentStudentHomeLocationNameAndStudentStudentHomeName(date, locationName, name);
+		for (Reservation reservation: reservations) {
+			if (reservation.getStudent().getRoom() / 100 == Integer.valueOf(floor)) {
+				count++;
+			}
+		}
+		return String.valueOf(count);
+	}
+	
 }
