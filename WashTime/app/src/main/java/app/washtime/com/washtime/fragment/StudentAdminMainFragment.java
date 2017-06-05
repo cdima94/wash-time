@@ -75,21 +75,33 @@ public class StudentAdminMainFragment extends Fragment {
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
+                if (adapter.getItem(position).getLabelName().equals("Statistics")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", mStudent);
+                    bundle.putString("title", "Statistics");
+                    StudentAdminStatistics newFragment = new StudentAdminStatistics();
+                    newFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.st_admin_frame_layout, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
     }
 
     private List<SettingItemView> populateRuleList() {
-        SettingItemView history = new SettingItemView("History", "");
+        SettingItemView history = new SettingItemView("History", "Show the history of the reservations");
+        SettingItemView statistics = new SettingItemView("Statistics", "Show the statics from 1 month");
         if (mRule != null) {
             SettingItemView item = new SettingItemView("Rule",
                     "Number of reservation:  " + mRule.getNoReservations() + "\n" +
                     "Duration:  " + mRule.getDuration() + "\n" +
                     "Start hour:  " +  mRule.getStartHour() + "\n" +
                     "End hour:  " + mRule.getEndHour());
-            return Arrays.asList(item, history);
+            return Arrays.asList(item, history, statistics);
         } else {
-            return Arrays.asList(history);
+            return Arrays.asList(history, statistics);
         }
     }
 

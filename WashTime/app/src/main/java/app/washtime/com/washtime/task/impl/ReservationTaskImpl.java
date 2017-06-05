@@ -73,6 +73,18 @@ public class ReservationTaskImpl implements ReservationTask {
         return null;
     }
 
+    @Override
+    public int countReservations(Object... parameters) {
+        try {
+            return new CountReservations().execute(parameters).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private class GetReservationList extends AsyncTask<Object, Integer, List<Reservation>> {
 
         protected List<Reservation> doInBackground(Object... parameters) {
@@ -214,6 +226,27 @@ public class ReservationTaskImpl implements ReservationTask {
                     reservations.add(reservation);
                 }
                 return reservations;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+            return null;
+        }
+    }
+
+    private class CountReservations extends AsyncTask<Object, Integer, Integer> {
+
+        @Override
+        protected Integer doInBackground(Object... params) {
+            try {
+                final String url = "http://" + ConfigConstants.IP + "/countReservation/"
+                        + (String) params[0] + "/"
+                        + (String) params[1] + "/"
+                        + (String) params[2] + "/"
+                        + String.valueOf(params[3]);
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                String response = restTemplate.getForObject(url, String.class);
+                return Integer.valueOf(response);
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
             }

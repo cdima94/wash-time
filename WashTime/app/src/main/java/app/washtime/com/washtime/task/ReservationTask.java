@@ -15,4 +15,6 @@ public interface ReservationTask {
     String delete(Object... parameters);
 
     List<Reservation> getHistoryList(Object... parameters);
+
+    int countReservations(Object... parameters);
 }
